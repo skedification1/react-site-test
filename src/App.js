@@ -1,3 +1,4 @@
+import React from "react";
 import Header from "./components/Header";
 import Card from "./components/Card";
 import Drawer from "./components/Drawer";
@@ -12,11 +13,13 @@ const arr = [
 ]
 
 function App() {
+
+const [cartOpened, setCartOpened] = React.useState(false);
+
   return (
     <div className="wrapper clear">
-
-      <Drawer />
-      <Header />
+      {cartOpened ? <Drawer onClose={() => setCartOpened(false)} /> : null}
+      <Header onClickCart={() => setCartOpened(true) }   />
 
       <div className="content p-40">
         <div className="d-flex align-center justify-between mb-40">
@@ -33,29 +36,11 @@ function App() {
           title={obj.title} 
           price={obj.price} 
           imageUrl={obj.imageUrl}
-          priKclicke={() => console.log(obj)}
+          onFavorite = {()=>console.log('Добавили в закладки')}
+          onPlus={() => console.log('нажали плюс')}
           />
         ))}
 
-
-
-
-
-        
-
-          <div className="card">
-            <img width={133} height={112} src="/img/sneakers/2.jpg" alt="Sneakers"></img>
-            <h5>Мужские Кроссовки Nike Air Max 270</h5>
-            <div className="d-flex justify-between align-center">
-              <div className="d-flex flex-collumn">
-                <span>Цена:</span>
-                <b> 12 999 руб. </b>
-              </div>
-              <button className="button">
-                <img width={11} height={11} src="/img/plus.svg" alt="Plus"></img>
-              </button>
-            </div>
-          </div>
         
         </div>
         ....
