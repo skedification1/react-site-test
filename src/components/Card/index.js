@@ -1,14 +1,21 @@
 import React from "react";
 import styles from './Card.module.scss'
 
-function Card({onFavorite, imageUrl, title, price, onPlus}  ){
+function Card({id, onFavorite, imageUrl, title, price, onPlus, favorited}  ){
   const adress = "/img/btn-checked.svg"
 const [isAdded, setIsAdded] = React.useState(false);
+const [isFavorite, setIsFavorite] = React.useState(favorited);
 
 const onClickPlus = () => {
-onPlus({imageUrl, title, price});
+onPlus({imageUrl, title, price,});
 setIsAdded(!isAdded);
+
 };
+
+const onClickFavorite = ()=>{
+onFavorite({imageUrl, title, price, id});
+  setIsFavorite(!isFavorite)
+}
 
 React.useEffect(()=>{
 console.log('переменная изменилась')
@@ -20,7 +27,7 @@ console.log('переменная изменилась')
 <div className={styles.card}>
 
         <div className={styles.favorite} onClick = {onFavorite}>
-        <img src="/img/heart-unliked.svg" alt="Unliked"></img>
+        <img onClick={onClickFavorite} src={isFavorite ? '/img/liked.svg' :'/img/unliked.svg'} alt="Unliked"></img>
         </div>
         <img width={133} height={112} src={imageUrl} alt="Sneakers"></img> 
         <h5>{title}</h5> 
