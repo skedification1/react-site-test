@@ -3,7 +3,39 @@ import Card from "../components/Card";
 import { Routes, Route, Link } from "react-router-dom";
 
 
-function Home({items,searchValue,setSerchValue,onChangeSearchInput,onAddToFavorite,onAddToCart}) {
+function Home({
+    items,
+   // cartItems,
+    searchValue,
+    setSerchValue,
+    onChangeSearchInput,
+    onAddToFavorite,
+    onAddToCart,
+    isLoading
+}) {
+
+
+
+
+//const {isItemAdded} = React.useContext(AppContext);
+
+const renderItems = () =>{
+    const filtredItems = items.filter((item) =>
+    item.title.toLowerCase().includes(searchValue.toLowerCase()),
+    );
+return ( isLoading ? [...Array(8 )] : filtredItems).map((item, index)=>(
+      <Card 
+      key={index}
+      onFavorite = {(obj) => onAddToFavorite(obj)}
+      onPlus={(obj) => onAddToCart(obj)}
+   // added={isItemAdded(item && item.id)}
+    loading ={isLoading}
+      {...item}
+      />
+    ));
+
+}
+
     return (
 
 <div className="content p-40">
@@ -19,18 +51,29 @@ function Home({items,searchValue,setSerchValue,onChangeSearchInput,onAddToFavori
             <input onChange={onChangeSearchInput} value={searchValue} placeholder="Поиск..."></input>
           </div>
         </div>
+      {//console.log('LOOOOOOL_____________',cartItems, items)
+      }
         <div className="d-flex flex-wrap">
 
-        { items 
+        {
+       //renderItems()
+       // rndtest()
+        renderItems()
+       /* 
+         items 
         .filter((item) =>item.title.toLowerCase().includes(searchValue.toLocaleLowerCase()))
         .map((item, index)=>(
           <Card 
           key={index}
           onFavorite = {(obj) => onAddToFavorite(obj)}
           onPlus={(obj) => onAddToCart(obj)}
+        added={cartItems.some((obj) => Number(obj.id) === Number(item.id))}
+        loading ={isLoading}
           {...item}
           />
-        ))}    
+        )) 
+    */
+    }    
         </div>
         ....
       </div>
