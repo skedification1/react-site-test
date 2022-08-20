@@ -1,5 +1,20 @@
 import React from "react";
+import Info from "./info";
+import AppContext from "../context";
+
 function Drawer({ onClose, onRemove, items = [] }) {
+  const {setCartItems} = React.useContext(AppContext);
+  const [isOrderComplete, setIsOrderComplete] = React.useState(0);
+
+  
+  const onClickOrder = () => {
+    console.log('OFORMIT ZAKAZ')
+    console.log(isOrderComplete)
+    setIsOrderComplete(isOrderComplete +1);
+    //setCartItems([]);
+    console.log( isOrderComplete)
+    
+  };
   return (
     <div className="overlay">
       <div className="drawer">
@@ -8,7 +23,8 @@ function Drawer({ onClose, onRemove, items = [] }) {
         </h2>
 
         {
-          items.length > 0 ? ( <div>
+          items.length > 0 ? ( 
+          <div className="d-flex flex-column flex">
             <div className="items">
 
               {
@@ -42,22 +58,22 @@ function Drawer({ onClose, onRemove, items = [] }) {
               <b>1074 руб.</b>
             </li>
           </ul>
-          <button className="greenButton">Оформить заказ
+          <button onClick={onClickOrder} className="greenButton">Оформить заказ
             <img src="/img/arrow.svg" alt="Arrow"></img>
           </button>
         </div>
 
             </div>
             ) : (
-            <div className="cartTotalBlock cartEmpty d-flex align-center justify-center flex-column flex">
-              <img className="mb-20" width="120px" height="120px" src="/img/empry-cart.jpg" alt="none"></img>
-              <h2>Корзина пустая</h2>
-              <p className="opacity-6"> Добавьте хотя бы одну пару кроссовок, что бы сделать заказ.</p>
+              
+            <Info
+            title={isOrderComplete ? "Заказ оформлен" : "Корзинка пустая"}
+           description={isOrderComplete ? "Ваш заказ №18 передан курьерской службе ":"Добавьте хотя бы одну пару кроссовок, что бы сделать заказ."}
+           image={isOrderComplete ?"/img/zakaz.jpg" : "/img/empry-cart.jpg" }
+            
+            />
 
-              <button onClick={onClose} className="greenButton">Вернуться назад
-                <img src="/img/arrow.svg" alt="Arrow"></img>
-              </button>
-            </div>
+       
         )}
 
 
