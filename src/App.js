@@ -22,7 +22,7 @@ const [isLoading, setIsLoading] = React.useState(true);
 //const [isNUM, setIsNum] = React.useState(0);
 //console.log("LLLLLLLLLLLLLLLLLLOOOOOOOOOOOOOOGGGGGGGGGGGGGGGGGG___",isNUM)
 
-
+//console.log('__________________',cartItems)
 
 React.useEffect(() => {
 async function fetchData(){
