@@ -32,7 +32,10 @@ const {totalPrice} = useCart();
            
           </li>
           <li>
+          <Link to="orders">
             <img width={18} height={18} src="/img/user.svg" alt="Пользоватеь"></img>
+            </Link>
+           
           </li>
         </ul>
       </header>
