@@ -43,7 +43,6 @@ console.error(error)
         {( isLoading ? [...Array(8 )] : orders).map((item, index)=>(
           <Card 
           key={index}
-          onFavorite = {(obj) => onAddToFavorite(obj)}
           onPlus={(obj) => onAddToCart(obj)}
        // added={isItemAdded(item && item.id)}
         loading ={isLoading}

@@ -28,6 +28,7 @@ const [isLoading, setIsLoading] = React.useState(true);
 React.useEffect(() => {
 async function fetchData(){
  /* setIsLoading(true); */
+ try{
   const cartResponce = await axios.get('https://62f0e7e9e2bca93cd23f831c.mockapi.io/cart');
   const favoritesResponce = await axios.get('https://62f0e7e9e2bca93cd23f831c.mockapi.io/favorites');
   const itemsResponce = await axios.get('https://62f0e7e9e2bca93cd23f831c.mockapi.io/items');
@@ -38,6 +39,9 @@ async function fetchData(){
 setCartItems(cartResponce.data);
 setFavorites(favoritesResponce.data);
 setItems(itemsResponce.data);
+ } catch {
+  alert('Ошибка при запросе данных апп джс (((');
+ }
 }
 fetchData();
 
@@ -86,7 +90,8 @@ const isItemAdded =(id) => {
   return (
    <AppContext.Provider value={{items, cartItems, favorites, isItemAdded, setCartOpened, setCartItems, onAddToFavorite, onAddToCart }}>
     <div className="wrapper clear">
-      {cartOpened && <Drawer items ={cartItems} onClose={() => setCartOpened(false)} onRemove={onRemoveItem}/>}
+     
+      <Drawer items ={cartItems} onClose={() => setCartOpened(false)} onRemove={onRemoveItem} opened={cartOpened}/>
      
       <Header onClickCart={() => setCartOpened(true) }   />
 
